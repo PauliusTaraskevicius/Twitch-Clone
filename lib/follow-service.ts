@@ -17,27 +17,24 @@ export const getFollowedUsers = async () => {
         },
       },
       include: {
-        following: true,
+        following: {
+          include: {
+            stream: {
+              select: {
+                isLive: true,
+              },
+            },
+          },
+        },
       },
-      // include: {
-      //   following: {
-      //     include: {
-      //       stream: {
-      //         select: {
-      //           isLive: true,
-      //         },
-      //       },
-      //     },
-      //   },
-      // },
       orderBy: [
-        // {
-        //   following: {
-        //     stream: {
-        //       isLive: "desc",
-        //     },
-        //   },
-        // },
+        {
+          following: {
+            stream: {
+              isLive: "desc",
+            },
+          },
+        },
         {
           createdAt: "desc",
         },
