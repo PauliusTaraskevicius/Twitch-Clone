@@ -13,7 +13,7 @@ import { ChatToggle } from "./chat-toggle";
 import { Chat, ChatSkeleton } from "./chat";
 import { Video, VideoSkeleton } from "./video";
 
-// import { Header, HeaderSkeleton } from "./header";
+import { Header, HeaderSkeleton } from "./header";
 
 type CustomStream = {
   id: string;
@@ -69,7 +69,7 @@ export const StreamPlayer = ({
       >
         <div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
           <Video hostName={user.username} hostIdentity={user.id} />
-          {/* <Header
+          <Header
             hostName={user.username}
             hostIdentity={user.id}
             viewerIdentity={identity}
@@ -77,13 +77,13 @@ export const StreamPlayer = ({
             isFollowing={isFollowing}
             name={stream.name}
           />
-          <InfoCard
+          {/* <InfoCard
             hostIdentity={user.id}
             viewerIdentity={identity}
             name={stream.name}
             thumbnailUrl={stream.thumbnailUrl}
-          />
-          <AboutCard
+          /> */}
+          {/* <AboutCard
             hostName={user.username}
             hostIdentity={user.id}
             viewerIdentity={identity}
