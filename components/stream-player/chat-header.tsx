@@ -1,10 +1,11 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import ChatToggle from "./chat-toggle";
+
+import { ChatToggle } from "./chat-toggle";
 import { VariantToggle } from "./variant-toggle";
 
-export default function ChatHeader() {
+export const ChatHeader = () => {
   return (
     <div className="relative p-3 border-b">
       <div className="absolute left-2 top-2 hidden lg:block">
@@ -16,7 +17,7 @@ export default function ChatHeader() {
       </div>
     </div>
   );
-}
+};
 
 export const ChatHeaderSkeleton = () => {
   return (

@@ -19,7 +19,7 @@ interface ChatFormProps {
   isDelayed: boolean;
 }
 
-export default function ChatForm({
+export const ChatForm = ({
   onSubmit,
   value,
   onChange,
@@ -27,7 +27,7 @@ export default function ChatForm({
   isFollowersOnly,
   isFollowing,
   isDelayed,
-}: ChatFormProps) {
+}: ChatFormProps) => {
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
 
   const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
@@ -80,7 +80,7 @@ export default function ChatForm({
       </div>
     </form>
   );
-}
+};
 
 export const ChatFormSkeleton = () => {
   return (

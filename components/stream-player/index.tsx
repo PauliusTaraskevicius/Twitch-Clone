@@ -4,11 +4,16 @@ import { Stream, User } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 
 import { cn } from "@/lib/utils";
-import { useViewerToken } from "@/hooks/user-viewer-token";
-import Video, { VideoSkeleton } from "./video";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
-import Chat from "./chat";
-import ChatToggle from "./chat-toggle";
+import { useViewerToken } from "@/hooks/user-viewer-token";
+
+// import { InfoCard } from "./info-card";
+// import { AboutCard } from "./about-card";
+import { ChatToggle } from "./chat-toggle";
+import { Chat, ChatSkeleton } from "./chat";
+import { Video, VideoSkeleton } from "./video";
+
+// import { Header, HeaderSkeleton } from "./header";
 
 type CustomStream = {
   id: string;
@@ -35,16 +40,16 @@ interface StreamPlayerProps {
   isFollowing: boolean;
 }
 
-export default function StreamPlayer({
+export const StreamPlayer = ({
   user,
   stream,
   isFollowing,
-}: StreamPlayerProps) {
+}: StreamPlayerProps) => {
   const { token, name, identity } = useViewerToken(user.id);
   const { collapsed } = useChatSidebar((state) => state);
 
   if (!token || !name || !identity) {
-    <div>Cannot watch the stream</div>;
+    return <StreamPlayerSkeleton />;
   }
 
   return (
@@ -71,14 +76,14 @@ export default function StreamPlayer({
             imageUrl={user.imageUrl}
             isFollowing={isFollowing}
             name={stream.name}
-          /> */}
-          {/* <InfoCard
+          />
+          <InfoCard
             hostIdentity={user.id}
             viewerIdentity={identity}
             name={stream.name}
             thumbnailUrl={stream.thumbnailUrl}
-          /> */}
-          {/* <AboutCard
+          />
+          <AboutCard
             hostName={user.username}
             hostIdentity={user.id}
             viewerIdentity={identity}
@@ -100,7 +105,7 @@ export default function StreamPlayer({
       </LiveKitRoom>
     </>
   );
-}
+};
 
 export const StreamPlayerSkeleton = () => {
   return (
@@ -109,7 +114,9 @@ export const StreamPlayerSkeleton = () => {
         <VideoSkeleton />
         {/* <HeaderSkeleton /> */}
       </div>
-      <div className="col-span-1 bg-background">{/* <ChatSkeleton /> */}</div>
+      <div className="col-span-1 bg-background">
+        <ChatSkeleton />
+      </div>
     </div>
   );
 };

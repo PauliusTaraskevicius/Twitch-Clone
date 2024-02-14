@@ -3,19 +3,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { ConnectionState } from "livekit-client";
 import { useMediaQuery } from "usehooks-ts";
-import {
+import { 
   useChat,
-  useConnectionState,
-  useRemoteParticipant,
+  useConnectionState, 
+  useRemoteParticipant
 } from "@livekit/components-react";
 
 import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar";
-import ChatHeader, { ChatHeaderSkeleton } from "./chat-header";
 
-import ChatForm, { ChatFormSkeleton } from "./chat-form";
-import ChatList from "./chat-list";
-
-// import { ChatCommunity } from "./chat-community";
+import { ChatForm, ChatFormSkeleton } from "./chat-form";
+import { ChatList, ChatListSkeleton } from "./chat-list";
+import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
+import { ChatCommunity } from "./chat-community";
 
 interface ChatProps {
   hostName: string;
@@ -25,23 +24,23 @@ interface ChatProps {
   isChatEnabled: boolean;
   isChatDelayed: boolean;
   isChatFollowersOnly: boolean;
-}
+};
 
-export default function Chat({
-  hostIdentity,
+export const Chat = ({
   hostName,
+  hostIdentity,
   viewerName,
   isFollowing,
-  isChatDelayed,
   isChatEnabled,
-  isChatFollowersOnly,
-}: ChatProps) {
-  const matches = useMediaQuery("(max-width: 1024px)");
+  isChatDelayed,
+  isChatFollowersOnly
+}: ChatProps) => {
+  const matches = useMediaQuery('(max-width: 1024px)');
   const { variant, onExpand } = useChatSidebar((state) => state);
   const connectionState = useConnectionState();
   const participant = useRemoteParticipant(hostIdentity);
 
-  const isOnline = participant && connectionState === ConnectionState.Connected;
+  const isOnline = participant && connectionState === ConnectionState.Connected
 
   const isHidden = !isChatEnabled || !isOnline;
 
@@ -72,10 +71,12 @@ export default function Chat({
   return (
     <div className="flex flex-col bg-background border-l border-b pt-0 h-[calc(100vh-80px)]">
       <ChatHeader />
-
       {variant === ChatVariant.CHAT && (
         <>
-          <ChatList messages={reversedMessages} isHidden={isHidden} />
+          <ChatList
+            messages={reversedMessages}
+            isHidden={isHidden}
+          />
           <ChatForm
             onSubmit={onSubmit}
             value={value}
@@ -87,15 +88,22 @@ export default function Chat({
           />
         </>
       )}
+      {variant === ChatVariant.COMMUNITY && (
+        <ChatCommunity
+          viewerName={viewerName}
+          hostName={hostName}
+          isHidden={isHidden}
+        />
+      )}
     </div>
   );
-}
+};
 
 export const ChatSkeleton = () => {
   return (
     <div className="flex flex-col border-l border-b pt-0 h-[calc(100vh-80px)] border-2">
       <ChatHeaderSkeleton />
-      {/* <ChatListSkeleton /> */}
+      <ChatListSkeleton />
       <ChatFormSkeleton />
     </div>
   );

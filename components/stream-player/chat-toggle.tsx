@@ -6,7 +6,7 @@ import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 
-export default function ChatToggle() {
+export const ChatToggle = () => {
   const { collapsed, onExpand, onCollapse } = useChatSidebar((state) => state);
 
   const Icon = collapsed ? ArrowLeftFromLine : ArrowRightFromLine;
@@ -32,4 +32,4 @@ export default function ChatToggle() {
       </Button>
     </Hint>
   );
-}
+};
